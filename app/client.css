@@ -1,0 +1,59 @@
+.h1 {
+  @apply text-[36px] md:text-[48px] font-bold;
+}
+.h2 {
+  @apply text-[24px] md:text-[36px] font-bold;
+}
+.h3 {
+  @apply text-[18px] md:text-[24px] font-bold;
+}
+.h4 {
+  @apply text-[16px] md:text-[18px] font-bold;
+}
+.h5 {
+  @apply text-[14px] md:text-[16px] font-semibold;
+}
+.h6 {
+  @apply text-[12px] md:text-[14px] font-semibold;
+}
+
+.grid-1-2 {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+.grid-1-2-3 {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.grid-1-4 {
+  @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+/* styles.css */
+.custom-phone-input input {
+  @apply outline-none;
+}
+.custom-phone-input {
+  @apply outline-none;
+}
+.PhoneInputCountryIcon {
+  @apply border-none shadow-none;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: #000ef8;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
