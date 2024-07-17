@@ -25,7 +25,7 @@ export const sidebar_links = [
     type: "Pages",
     links: [
       {
-        name: "Forms",
+        name: "Suggestion Forms",
         icon: UserCog,
         path: "/admin/forms",
       },

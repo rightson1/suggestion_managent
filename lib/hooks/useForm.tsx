@@ -79,3 +79,18 @@ export const useGetResponsesAdmin = ({
     },
   });
 };
+
+//edit
+export const useUpdateForm = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: Partial<IFormFetched>) => {
+      return await axios.put("/api/forms", data).then(eCheck);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["forms"],
+      });
+    },
+  });
+};

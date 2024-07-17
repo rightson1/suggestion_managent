@@ -1,4 +1,4 @@
-import { IDepartment, IForm } from "@/lib/types/data_types";
+import { IDepartment, IForm, IFormFetched } from "@/lib/types/data_types";
 import Department from "@/models/department";
 import Form from "@/models/form";
 import { conn } from "@/models/mongo_db_connection";
@@ -62,6 +62,22 @@ export const GET = async (req: NextRequest) => {
     ]);
 
     return NextResponse.json(forms);
+  } catch (err: any) {
+    console.log(err.message);
+    return NextResponse.json({
+      message: err.message,
+      success: false,
+    });
+  }
+};
+
+//put
+export const PUT = async (req: NextRequest) => {
+  try {
+    await conn();
+    const data: IFormFetched = await req.json();
+    const form = await Form.findByIdAndUpdate(data._id, data, { new: true });
+    return NextResponse.json(form);
   } catch (err: any) {
     console.log(err.message);
     return NextResponse.json({

@@ -61,7 +61,7 @@ export function AddDepartment() {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Department</DialogTitle>
-          <DialogDescription>Click save when you're done.</DialogDescription>
+          <DialogDescription>Click save when youre done.</DialogDescription>
         </DialogHeader>
 
         <div className="grid grid-cols-1 items-center gap-4">
@@ -134,7 +134,7 @@ export function EditDepartment({ department }: { department: IDepartment }) {
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Add Department</DialogTitle>
-          <DialogDescription>Click save when you're done.</DialogDescription>
+          <DialogDescription>Click save when youre done.</DialogDescription>
         </DialogHeader>
 
         <div className="grid grid-cols-1 items-center gap-4">

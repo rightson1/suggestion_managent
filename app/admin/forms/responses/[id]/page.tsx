@@ -3,14 +3,7 @@ import { Loading } from "@/components/loading";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { Button } from "@/components/ui/button";
 import { IoChatboxOutline } from "react-icons/io5";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useGetForm, useGetResponsesAdmin } from "@/lib/hooks/useForm";
@@ -42,12 +35,12 @@ const Page = ({
         <div className="flex flex-col gap-5 my-5">
           {responses.map((response) => {
             return (
-              <Card>
+              <Card key={response._id}>
                 <CardContent className="p-4 space-y-5">
                   <div className="flex flex-col gap-5">
                     {response.responses.map((response) => {
                       return (
-                        <div className="flex flex-col gap-2">
+                        <div key={response._id} className="flex flex-col gap-2">
                           <h3 className="h6">{response.fieldDetails.title}</h3>
 
                           <p>{response.answer}</p>

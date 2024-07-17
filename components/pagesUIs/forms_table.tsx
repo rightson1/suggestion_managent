@@ -9,6 +9,9 @@ import { MdDelete } from "react-icons/md";
 import { useGetForms } from "@/lib/hooks/useForm";
 import { IFormFetched } from "@/lib/types/data_types";
 import Link from "next/link";
+import { EditForm } from "./edit_form";
+import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 export const FormsTable = () => {
   const { data: forms, isPending } = useGetForms();
   const columns: ColumnDef<IFormFetched>[] = [
@@ -25,40 +28,60 @@ export const FormsTable = () => {
       },
     },
     {
-      id: "View Responses",
-      header: "View Responses",
+      accessorKey: "status",
+      header: "Status",
       cell: ({ row }) => {
+        const value = row.original.status;
         return (
-          <Button
-            size="sm"
-            variant="link"
-            onClick={() => {
-              console.log("View Responses");
-            }}
+          <Badge
+            variant={"outline"}
+            className={cn(
+              value === "active"
+                ? "border-primary text-primary"
+                : "border-destructive text-destructive"
+            )}
           >
-            <Link href={`/admin/forms/responses/${row.original._id}`}>
-              View
-            </Link>
-          </Button>
+            {value}
+          </Badge>
         );
       },
     },
     {
+      accessorKey: "published",
+      header: "Published",
+      cell: ({ row }) => {
+        const value = row.original.published;
+        return (
+          <Badge
+            variant={"outline"}
+            className={cn(
+              value
+                ? "border-primary text-primary"
+                : "border-destructive text-destructive"
+            )}
+          >
+            {value ? "Published" : "Not Published"}
+          </Badge>
+        );
+      },
+    },
+    {
+      id: "View Responses",
+      header: "View Responses",
+      cell: ({ row }) => {
+        return (
+          <Link href={`/admin/forms/responses/${row.original._id}`}>View</Link>
+        );
+      },
+      size: 100,
+    },
+    {
       id: "Actions",
       header: "Actions",
-      cell: (row) => {
+      cell: ({ row }) => {
         return (
-          <div>
-            <Button
-              size="icon"
-              variant={"ghost"}
-              className="mr-2"
-              onClick={() => {
-                console.log("Edit");
-              }}
-            >
-              <MdEdit size={20} />
-            </Button>
+          <div className="flex gap-1">
+            <EditForm form={row.original} />
             <Button
               size="icon"
               variant={"ghost"}

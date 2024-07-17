@@ -6,6 +6,7 @@ import { useGetUserForms } from "@/lib/hooks/useForm";
 import { IFormUser } from "@/lib/types/data_types";
 import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
+import { View_response } from "./view_response";
 export const UserForms = () => {
   const { user } = useAuth();
   const { data: forms, isPending } = useGetUserForms(user?._id);
@@ -29,15 +30,7 @@ export const UserForms = () => {
       header: " Response",
       cell: ({ row }) => {
         return row.original.hasUserFilled ? (
-          <Button
-            size="sm"
-            variant="link"
-            onClick={() => {
-              console.log("View Responses");
-            }}
-          >
-            View Response
-          </Button>
+          <View_response form={row.original} />
         ) : (
           <Button
             size="sm"
