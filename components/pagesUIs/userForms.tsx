@@ -7,6 +7,8 @@ import { IFormUser } from "@/lib/types/data_types";
 import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
 import { View_response } from "./view_response";
+import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 export const UserForms = () => {
   const { user } = useAuth();
   const { data: forms, isPending } = useGetUserForms(user?._id);
@@ -26,6 +28,25 @@ export const UserForms = () => {
       accessorFn: (row) => (row.hasUserFilled ? "Yes" : "No"),
     },
     {
+      accessorKey: "status",
+      header: "Status",
+      cell: ({ row }) => {
+        const value = row.original.status;
+        return (
+          <Badge
+            variant={"outline"}
+            className={cn(
+              value === "active"
+                ? "border-primary text-primary"
+                : "border-destructive text-destructive"
+            )}
+          >
+            {value}
+          </Badge>
+        );
+      },
+    },
+    {
       id: "Response",
       header: " Response",
       cell: ({ row }) => {
@@ -38,6 +59,7 @@ export const UserForms = () => {
             onClick={() => {
               console.log("View Responses");
             }}
+            disabled={row.original.status == "inactive"}
           >
             <Link href={`/forms/${row.original._id}`}>Fill Form</Link>
           </Button>

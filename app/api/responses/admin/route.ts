@@ -4,7 +4,7 @@ import Response from "@/models/response";
 import Form from "@/models/form";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
-
+export const dynamic = "force-dynamic";
 export const GET = async (req: NextRequest) => {
   try {
     await conn();

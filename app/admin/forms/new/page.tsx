@@ -12,6 +12,16 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { IFieldType, IInputType } from "@/lib/types/ui_types";
 import { fields } from "@/components/fields";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import {
   Dialog,
   DialogContent,
@@ -35,6 +45,7 @@ import { useCreateForm } from "@/lib/hooks/useForm";
 
 export default function Page() {
   const [formFields, setFormFields] = React.useState<IFieldType[]>([]);
+
   const [formDetails, setFormDetails] = React.useState<IForm>({
     title: "",
     description: "",
@@ -44,6 +55,7 @@ export default function Page() {
     status: "active",
     fields: [],
     views: [],
+    deadline: undefined,
   });
   useEffect(() => {
     const fields_formatted = formFields.map((field) => {
@@ -63,6 +75,7 @@ export default function Page() {
       };
     });
   }, [formFields]);
+
   const handleChanges = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -249,6 +262,13 @@ const FormDetails: React.FC<{
   const { customToast, loading } = useCustomToast();
   const { mutateAsync: createForm } = useCreateForm();
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const [date, setDate] = React.useState<Date>();
+  useEffect(() => {
+    setFormDetails({
+      ...formDetails,
+      deadline: date as Date,
+    });
+  }, [date]);
 
   const submit = () => {
     if (
@@ -277,6 +297,30 @@ const FormDetails: React.FC<{
             Complete the form details and publish the form.
           </DialogDescription>
         </DialogHeader>
+        <LabeledInput label="Deadline" id="">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "PPP") : <span>Pick a date</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </LabeledInput>
         <LabeledInput label="Form Department" id="department">
           <Select
             name="department"

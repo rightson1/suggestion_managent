@@ -46,6 +46,7 @@ export interface IForm {
   views: string[]; // assuming views' ObjectId will be represented as string
   status: "active" | "inactive";
   fields: IField[] | IFieldFetched[];
+  deadline?: Date;
 }
 
 export interface IFormFetched extends IForm, Fetched {

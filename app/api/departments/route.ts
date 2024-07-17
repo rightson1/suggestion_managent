@@ -4,6 +4,7 @@ import Form from "@/models/form";
 import { conn } from "@/models/mongo_db_connection";
 import User from "@/models/user";
 import { NextRequest, NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 export const POST = async (req: NextRequest) => {
   try {
     await conn();

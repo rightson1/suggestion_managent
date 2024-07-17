@@ -31,6 +31,10 @@ const FormSchema = new Schema(
       enum: ["active", "inactive"],
       default: "active",
     },
+    deadline: {
+      type: String,
+      required: true,
+    },
     fields: [
       {
         type: {
@@ -48,6 +52,7 @@ const FormSchema = new Schema(
     timestamps: true,
   }
 );
+
 const Form = models.Form || model("Form", FormSchema);
 
 export default Form;

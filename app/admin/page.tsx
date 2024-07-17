@@ -100,31 +100,28 @@ const Page = () => {
 };
 
 const PieCard = ({ title }: { title: string }) => {
+  const { data: forms } = useGetForms();
   const thisMonth = months[new Date().getMonth()];
   const [selectedMonth, setSelectedMonth] = React.useState<string>(thisMonth);
   const [data, setData] = React.useState<
     { x: string; y: number; color: string }[]
   >([]);
   useEffect(() => {
-    const data_raw = [
+    if (!forms) return;
+    const data = [
       {
-        x: "Pending Sugestions",
-        y: Math.floor(Math.random() * 2000),
+        x: "Inactive Forms",
+        y: forms.filter((form) => form.status === "inactive").length,
         color: "#EDB900",
       },
       {
-        x: "Accepted Suggestions",
-        y: Math.floor(Math.random() * 2000),
+        x: "Active Forms",
+        y: forms.filter((form) => form.status === "active").length,
         color: "#000EF8",
       },
-      {
-        x: "Rejected Suggestions",
-        y: Math.floor(Math.random() * 1000),
-        color: "#FF1616",
-      },
     ];
-    setData(data_raw);
-  }, [selectedMonth]);
+    setData(data);
+  }, [forms]);
 
   return (
     <Card className="p-4">

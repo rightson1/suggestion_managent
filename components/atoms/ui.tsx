@@ -18,7 +18,9 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
 }) => {
   return (
     <div className={`w-full space-y-2 `}>
-      <Label htmlFor={id}>{label}</Label>
+      <Label htmlFor={id} className="w-full">
+        {label}
+      </Label>
       {props.children}
     </div>
   );

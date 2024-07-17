@@ -1,5 +1,5 @@
 import { IFormFetched } from "@/lib/types/data_types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -21,19 +21,35 @@ import { Button } from "../ui/button";
 import { MdEdit } from "react-icons/md";
 import { useUpdateForm } from "@/lib/hooks/useForm";
 import { LabeledInput } from "../atoms/ui";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export const EditForm: React.FC<{
   form: IFormFetched;
 }> = ({ form }) => {
   const { customToast, loading } = useCustomToast();
   const { mutateAsync } = useUpdateForm();
+  const [date, setDate] = useState<Date | undefined>(form.deadline);
   const [values, setValues] = React.useState<Partial<IFormFetched>>({
     status: form.status,
     published: form.published,
     _id: form._id,
+    deadline: form.deadline,
   });
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-
+  useEffect(() => {
+    setValues({
+      ...values,
+      deadline: date,
+    });
+  }, [date]);
   const submit = () => {
     customToast({
       func: async () => {
@@ -68,8 +84,10 @@ export const EditForm: React.FC<{
               setValues({ ...values, status: value as "active" | "inactive" });
             }}
           >
-            <SelectTrigger>
-              <SelectValue className="capitalize">{values.status}</SelectValue>
+            <SelectTrigger className="w-full">
+              <SelectValue className="capitalize w-full ">
+                {values.status}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem className="capitalize" value="active">
@@ -99,6 +117,30 @@ export const EditForm: React.FC<{
               <SelectItem value="true">True</SelectItem>
             </SelectContent>
           </Select>
+        </LabeledInput>
+        <LabeledInput label="Deadline" id="">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant={"outline"}
+                className={cn(
+                  "w-full justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "PPP") : <span>Pick a date</span>}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
         </LabeledInput>
         <DialogFooter>
           <Button onClick={submit}>Publish</Button>
