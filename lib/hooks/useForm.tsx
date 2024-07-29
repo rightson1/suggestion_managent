@@ -94,3 +94,18 @@ export const useUpdateForm = () => {
     },
   });
 };
+
+//delete
+export const useDeleteForm = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (form_id: string) => {
+      return await axios.delete(`/api/forms?form_id=${form_id}`).then(eCheck);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["forms"],
+      });
+    },
+  });
+};

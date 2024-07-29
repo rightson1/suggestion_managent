@@ -11,7 +11,7 @@ import React from "react";
 import { Switch } from "@/components/ui/switch";
 import { CreateNotification } from "@/components/pagesUIs/send_notification";
 
-const Page = ({
+const Response = ({
   params,
 }: {
   params: {
@@ -91,4 +91,4 @@ const Page = ({
   }
 };
 
-export default Page;
+export default Response;

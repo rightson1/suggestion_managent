@@ -9,7 +9,7 @@ import { useCreateResponse, useGetForm } from "@/lib/hooks/useForm";
 import { IResponseField } from "@/lib/types/data_types";
 import React from "react";
 
-export default function Page({
+export default function Form({
   params,
 }: {
   params: {

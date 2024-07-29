@@ -3,7 +3,7 @@ import { UsersDepartments } from "@/components/pagesUIs/students_table";
 import { BarButton, PageTitle } from "@/components/shared/PageTopBar";
 import { ClipboardPlus } from "lucide-react";
 import React from "react";
-const Page = () => {
+const Department = () => {
   return (
     <div className="flex flex-col gap-5 h-min">
       <div className="fb">
@@ -22,4 +22,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Department;

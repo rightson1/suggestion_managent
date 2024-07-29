@@ -1,8 +1,8 @@
-import { IDepartment, IForm, IFormFetched } from "@/lib/types/data_types";
+import { IForm, IFormFetched } from "@/lib/types/data_types";
 import Department from "@/models/department";
 import Form from "@/models/form";
 import { conn } from "@/models/mongo_db_connection";
-import User from "@/models/user";
+import Response from "@/models/response";
 import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 export const POST = async (req: NextRequest) => {
@@ -12,14 +12,12 @@ export const POST = async (req: NextRequest) => {
     const newForm = await Form.create(data);
     return NextResponse.json(newForm);
   } catch (err: any) {
-    console.log(err.message);
     return NextResponse.json({
       message: err.message,
       success: false,
     });
   }
 };
-
 export const GET = async (req: NextRequest) => {
   try {
     await conn();
@@ -88,6 +86,26 @@ export const PUT = async (req: NextRequest) => {
     const data: IFormFetched = await req.json();
     const form = await Form.findByIdAndUpdate(data._id, data, { new: true });
     return NextResponse.json(form);
+  } catch (err: any) {
+    console.log(err.message);
+    return NextResponse.json({
+      message: err.message,
+      success: false,
+    });
+  }
+};
+
+//delete form and responses
+export const DELETE = async (req: NextRequest) => {
+  try {
+    await conn();
+    const form_id = req.nextUrl.searchParams.get("form_id");
+    await Response.deleteMany({ form: form_id });
+    await Form.findByIdAndDelete(form_id);
+    return NextResponse.json({
+      message: "Form deleted successfully",
+      success: true,
+    });
   } catch (err: any) {
     console.log(err.message);
     return NextResponse.json({

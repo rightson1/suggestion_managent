@@ -10,7 +10,7 @@ import { RiDraftLine } from "react-icons/ri";
 import { FormsTable } from "@/components/pagesUIs/forms_table";
 import Link from "next/link";
 import { useGetForms } from "@/lib/hooks/useForm";
-const Page = () => {
+const Forms = () => {
   const { data: forms, isLoading } = useGetForms();
   const fSumm = useMemo(() => {
     let activeForms = forms?.filter((form) => form.status == "active").length;
@@ -66,4 +66,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Forms;

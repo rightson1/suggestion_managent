@@ -10,7 +10,7 @@ import { IUser } from "@/lib/types/data_types";
 import { ClipboardPlus } from "lucide-react";
 import React, { useEffect } from "react";
 
-export default function Page() {
+export default function Profile() {
   const { user } = useAuth();
   const { customToast } = useCustomToast();
   const { mutateAsync: updatedUser } = useUpdateUser();

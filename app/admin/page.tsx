@@ -32,7 +32,7 @@ import { useGetUsers } from "@/lib/hooks/useUsers";
 import { useGetForms } from "@/lib/hooks/useForm";
 import { useGetDepartments } from "@/lib/hooks/useDepartments";
 
-const Page = () => {
+const AdminPage = () => {
   const { data: users } = useGetUsers();
   const { data: forms } = useGetForms();
   const { data: departments } = useGetDepartments();
@@ -197,4 +197,4 @@ const Bids = (props: {
   );
 };
 
-export default Page;
+export default AdminPage;

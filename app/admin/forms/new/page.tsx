@@ -43,7 +43,7 @@ import { useGetDepartments } from "@/lib/hooks/useDepartments";
 import { isFilled, useCustomToast } from "@/components/atoms/function";
 import { useCreateForm } from "@/lib/hooks/useForm";
 
-export default function Page() {
+export default function NewForm() {
   const [formFields, setFormFields] = React.useState<IFieldType[]>([]);
 
   const [formDetails, setFormDetails] = React.useState<IForm>({

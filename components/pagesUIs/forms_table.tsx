@@ -6,14 +6,17 @@ import { recent_forms, TRecentForms } from "@/lib/data/table_data";
 import { Button } from "../ui/button";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import { useGetForms } from "@/lib/hooks/useForm";
+import { useDeleteForm, useGetForms } from "@/lib/hooks/useForm";
 import { IFormFetched } from "@/lib/types/data_types";
 import Link from "next/link";
 import { EditForm } from "./edit_form";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
+import { useCustomToast } from "../atoms/function";
 export const FormsTable = () => {
   const { data: forms, isPending } = useGetForms();
+  const { mutateAsync: deleteForm } = useDeleteForm();
+  const { customToast, loading } = useCustomToast();
   const columns: ColumnDef<IFormFetched>[] = [
     {
       accessorKey: "title",
@@ -86,8 +89,13 @@ export const FormsTable = () => {
               size="icon"
               variant={"ghost"}
               onClick={() => {
-                console.log("Delete");
+                customToast({
+                  func: async () => {
+                    await deleteForm(row.original._id);
+                  },
+                });
               }}
+              disabled={loading}
             >
               <MdDelete size={20} />
             </Button>

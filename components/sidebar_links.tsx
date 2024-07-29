@@ -59,16 +59,7 @@ export const sidebar_links_user = [
       },
     ],
   },
-  {
-    type: "Pages",
-    links: [
-      {
-        name: "Suggestion Forms",
-        icon: UserCog,
-        path: "/forms",
-      },
-    ],
-  },
+
   {
     type: "Settings",
     links: [
